@@ -28,3 +28,15 @@ CREATE TABLE transactions
   CONSTRAINT fk_accountNum FOREIGN KEY (branchCode, accountNum)
   REFERENCES accountDetails(branchCode, accountNum)
 );
+
+CREATE INDEX bankIndex
+ON branchDetails (bankName);
+
+CREATE INDEX dateIndex
+ON transactions (transactionDate);
+
+CREATE INDEX branchCodeIndex
+ON transactions (branchCode);
+
+CREATE INDEX accountNumIndex
+ON transactions (accountNum);
