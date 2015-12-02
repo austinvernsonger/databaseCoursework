@@ -1,16 +1,15 @@
 CREATE TABLE branchDetails
 (
-  branchCode INT(6) NOT NULL,
-  bankName VARCHAR(20),
-  branchName VARCHAR(20),
-  PRIMARY KEY (branchCode)
+  branchCode NUMBER(6) NOT NULL PRIMARY KEY,
+  bankName VARCHAR2(20),
+  branchName VARCHAR2(20)
 );
 
 CREATE TABLE accountDetails
 (
-  branchCode INT(6) NOT NULL,
-  accountNum INT(7) NOT NULL,
-  accountCharge DECIMAL(10,2),
+  branchCode NUMBER(6) NOT NULL,
+  accountNum NUMBER(7) NOT NULL,
+  accountCharge NUMBER(4,2),
   PRIMARY KEY (branchCode, accountNum),
   CONSTRAINT fk_branchCode FOREIGN KEY (branchCode)
   REFERENCES branchDetails(branchCode)
@@ -18,12 +17,12 @@ CREATE TABLE accountDetails
 
 CREATE TABLE transactions
 (
-  transactionId INT(4) NOT NULL,
+  transactionId NUMBER(4) NOT NULL,
   transactionDate DATE,
-  description VARCHAR(100),
-  amount DECIMAL(10,2),
-  branchCode INT(6) NOT NULL,
-  accountNum INT(7) NOT NULL,
+  description VARCHAR2(30),
+  amount NUMBER(10,2),
+  branchCode NUMBER(6) NOT NULL,
+  accountNum NUMBER(7) NOT NULL,
   PRIMARY KEY (transactionId),
   CONSTRAINT fk_accountNum FOREIGN KEY (branchCode, accountNum)
   REFERENCES accountDetails(branchCode, accountNum)
@@ -34,9 +33,6 @@ ON branchDetails (bankName);
 
 CREATE INDEX dateIndex
 ON transactions (transactionDate);
-
-CREATE INDEX branchCodeIndex
-ON transactions (branchCode);
 
 CREATE INDEX accountNumIndex
 ON transactions (accountNum);
